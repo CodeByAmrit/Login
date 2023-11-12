@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload and Crop Image</title>
+    <link rel="stylesheet" href="https://unpkg.com/cropperjs/dist/cropper.min.css">
+</head>
+<body>
+    <h1>Upload and Crop Image</h1>
+
+    <div id="image-upload-container">
+        <div id="image-preview-container">
+            <img id="image-preview" src="#" alt="Preview">
+        </div>
+        <div id="upload-btn-wrapper">
+            <button class="btn">Choose Image</button>
+            <input type="file" name="image" id="input-image" accept="image/*">
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/cropperjs"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const imagePreview = document.getElementById('image-preview');
+            const inputImage = document.getElementById('input-image');
+            const cropper = new Cropper(imagePreview, {
+                aspectRatio: 1, // Adjust the aspect ratio as needed
+                viewMode: 2, // Set the view mode (0, 1, 2, 3)
+            });
+
+            inputImage.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        imagePreview.src = event.target.result;
+                        cropper.replace(event.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
