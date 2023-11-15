@@ -79,7 +79,9 @@ input:focus{
     color: white;
     background-color: #0072d9;
     border: none;
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius:6px;
 }
 #btn:hover{

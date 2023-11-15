@@ -1,47 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload and Crop Image</title>
-    <link rel="stylesheet" href="https://unpkg.com/cropperjs/dist/cropper.min.css">
-</head>
-<body>
-    <h1>Upload and Crop Image</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="style.css">
+    
+  </head>
 
-    <div id="image-upload-container">
-        <div id="image-preview-container">
-            <img id="image-preview" src="#" alt="Preview">
-        </div>
-        <div id="upload-btn-wrapper">
-            <button class="btn">Choose Image</button>
-            <input type="file" name="image" id="input-image" accept="image/*">
-        </div>
+  <body class="prevent-select ">
+    <div class="whiteBox">
+        <p>Give Feedback</p>
+        
+        <form action="connect.php" method="post">
+            <div id="label1" class="prevent-select">Name</div>
+            <input type="text" name="name" id="input1"> 
+            
+            
+            <div id="label2" class="prevent-select">Message</div>
+            <input type="text" name="feed" id="input2">
+
+            <input type="submit" >
+        </form>
+        <a id="btn" style="text-decoration: none; text-align:center; margin:10px" href="login.php">Login</a>
+        <a id="btnOtp" style="text-decoration: none; text-align:center;" href="createAccount.php">Sign Up</a>
+        
     </div>
 
-    <script src="https://unpkg.com/cropperjs"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const imagePreview = document.getElementById('image-preview');
-            const inputImage = document.getElementById('input-image');
-            const cropper = new Cropper(imagePreview, {
-                aspectRatio: 1, // Adjust the aspect ratio as needed
-                viewMode: 2, // Set the view mode (0, 1, 2, 3)
-            });
 
-            inputImage.addEventListener('change', function (e) {
-                const file = e.target.files[0];
 
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        imagePreview.src = event.target.result;
-                        cropper.replace(event.target.result);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        });
-    </script>
-</body>
+
+
+    <script src="script.js"></script>
+
+    
+  </body>
 </html>
