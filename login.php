@@ -1,7 +1,12 @@
 
 <?php
-
+session_start();
 include 'connect.php';
+
+session_start();
+if (isset($_SESSION["userId"])) {
+    header("Location: dashboard.php");
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
@@ -15,10 +20,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
-       
+  
         if (password_verify($password, $row['password'])) {
             echo '<script>alert("Login Successfully");</script>';
+
             
+           
+            $_SESSION['userId'] = $email;
+            $_SESSION['userName'] = $row['name'];
+            $_SESSION['userPic'] = base64_encode($row['image_data']);
+            header("Location: dashboard.php");
             
             
         }
@@ -47,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="icon" type="image/x-icon" href="img/icon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
    
 
 </head>
@@ -97,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     
-    <script src="script.js" >
+    <script src="scripts/script.js" >
         function createFolder() {
             alert("Function test")
         }

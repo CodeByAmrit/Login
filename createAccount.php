@@ -6,7 +6,13 @@
         $email = $_POST['email'];
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO user (name, email, password) VALUES ('$name','$email', '$password')";
+        $image = file_get_contents($_FILES['image']['tmp_name']);
+        $imageName = $_FILES['image']['name'];
+
+        $image = $_FILES['image']['tmp_name'];
+        $imgContent = addslashes(file_get_contents($image));
+
+        $sql = "INSERT INTO user (name, email, password, image_data, image_name) VALUES ('$name','$email', '$password', '$imgContent', '$imageName')";
         try {
             if ($conn->query($sql) === TRUE) {
                 echo '<script>alert("Account Created Successfully !!")</script>';
@@ -38,7 +44,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="img/icon.ico">
     <title>Create Account</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     
     
 </head>
@@ -48,7 +54,7 @@
         <p style="font-size: 30px; font-weight:bold; color:rgb(32,33,36);margin:18px 0 0 0;">CodeByAmrit</p>
         <p>Create a Account</p>
         <div class="wrap">
-            <form action="createAccount.php" method="post">
+            <form action="createAccount.php" method="post" enctype="multipart/form-data">
 
                 <div id="form1" style="position: relative;">
                     <div id="label3" class="prevent-select">Name</div>
@@ -70,7 +76,11 @@
                 <div id="form2" style="display:none;">
                     <div id="label4" class="prevent-select">Enter OTP</div>
                     <input type="number" oninput="validateOTP(this)" tabindex="1" id="input4" name="otp" required>
-
+                    
+                        <label for="image">Choose an image:</label>
+                        <input type="file" name="image" id="image" accept="image/*" required>
+                        
+                    
                     <div class="btnGroup">
                         <a href="login.php">Resend otp</a>
                         <input type="submit"  value="Verify" id="btnOtp" tabindex="3" style="text-align: center;"/>
@@ -86,7 +96,7 @@
     </div>
 
 
-    <script src="script.js"></script>
+    <script src="scripts/script.js"></script>
     
 </body>
 </html>
