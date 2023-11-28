@@ -1,39 +1,3 @@
--- create database codebyamrit;
--- use codebyamrit;
-
--- create table user(
--- id int auto_increment primary key,
--- name varchar(255) not null,
--- emaiL VARCHAR(255) unique key,
--- password VARCHAR(255) NOT NULL,
-
--- image_data LONGBLOB,
--- image_name VARCHAR(255) NOT NULL
-
--- );
-
--- CREATE TABLE student_marks (
-    
---     user_id int PRIMARY KEY,
---     student_name VARCHAR(255) NOT NULL,
---     st1 INT,
---     sp1 INT,
---     st2 INT,
---     sp2 INT,
---     st3 INT,
---     sp3 INT,
---     st4 INT,
---     sp4 INT,
---     st5 INT,
---     sp5 INT,
---     st6 INT,
---     sp6 INT
-    
--- );
-
-
-
-
 -- Create a database
 CREATE DATABASE IF NOT EXISTS SchoolDB;
 USE SchoolDB;
@@ -100,3 +64,6 @@ CREATE TABLE IF NOT EXISTS StudentLogin (
     image_data LONGBLOB,
     CONSTRAINT FK_StudentLoginID FOREIGN KEY (StudentID) REFERENCES Students(StudentID)
 );
+
+insert into branches (BranchName) values ("U.I.E.T");
+insert into courses (CourseName) values ("Computer Engg"), ("Artificial Intelligence and Machine Learning");

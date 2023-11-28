@@ -1,10 +1,10 @@
-<?php
+<!-- <?php
 include("connect.php");
 session_start();
 if (isset($_SESSION["userId"])) {
   $email = strval($_SESSION['userId']);
-  
-  
+  $result = $conn->query("SELECT * FROM codebyamrit.user where email = '$email'");
+  $row = $result->fetch_assoc();
   $picture = '<img src="data:image/jpeg;base64,' . $_SESSION['userPic'] . '" width="100%" height="100%"  >';
 
 
@@ -16,7 +16,7 @@ if (isset($_SESSION["userId"])) {
 
 }
 
-?> 
+?> -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +26,7 @@ if (isset($_SESSION["userId"])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/x-icon" href="img/icon.ico" />
   <title>CodeByAmrit</title>
-  <link rel="stylesheet" href="css/student.css" />
+  <link rel="stylesheet" href="/css/student.css" />
   <script src="scripts/student.js"></script>
 </head>
 
@@ -49,7 +49,7 @@ if (isset($_SESSION["userId"])) {
           </div>
         </div>
         <div class="center" id="parentDiv">
-          <div class="item active" id='firstItem' onclick="load('include/main.php', this)">
+          <div class="item active" id='firstItem' onclick="load('include/dashboardContent.php', this)">
             <img src="img/dashboard.svg" alt="dashboard" width="20px" height="20px" />
             <p>Dashboard</p>
           </div>
@@ -92,7 +92,68 @@ if (isset($_SESSION["userId"])) {
     </div>
 
     <div class="right" id="content-container">
-      <?php include('include/main.php') ?>
+        <div class="rigthTop" >
+            <input type="text" id="search" placeholder="Search" />
+            <img src="img/bell.svg" alt="notification" class="prevent-select message" />
+        </div>
+        <div class="welcome" style="height: 120px;">
+            <!-- php for later -->
+            <div class="text1">
+                <p>
+                    Result
+                </p>
+                <p>All the best </p>
+            </div>
+        
+            <div class="table">
+                <div style="display: flex;">
+                    <div class="row">Subject</div>
+                    <div class="row">Theory Marks</div>
+                    <div class="row">Practical Marks</div>
+                    <div class="row">Total</div>
+                </div>
+                <div style="display: flex;">
+                    <div class="rowMain">name</div>
+                    <div class="rowMain">t</div>
+                    <div class="rowMain">p</div>
+                    <div class="rowMain">Total</div>
+                </div>
+                <div style="display: flex;">
+                    <div class="rowMain">name</div>
+                    <div class="rowMain">t</div>
+                    <div class="rowMain">p</div>
+                    <div class="rowMain">Total</div>
+                </div>
+                <div style="display: flex;">
+                    <div class="rowMain">name</div>
+                    <div class="rowMain">t</div>
+                    <div class="rowMain">p</div>
+                    <div class="rowMain">Total</div>
+                </div>
+                <div style="display: flex;">
+                    <div class="rowMain">name</div>
+                    <div class="rowMain">t</div>
+                    <div class="rowMain">p</div>
+                    <div class="rowMain">Total</div>
+                </div>
+                <div style="display: flex;">
+                    <div class="rowMain">name</div>
+                    <div class="rowMain">t</div>
+                    <div class="rowMain">p</div>
+                    <div class="rowMain">Total</div>
+                </div>
+                <div style="display: flex;">
+                    <div class="rowMain">name</div>
+                    <div class="rowMain">t</div>
+                    <div class="rowMain">p</div>
+                    <div class="rowMain">Total</div>
+                </div>
+                
+            </div>
+        
+        </div>
+        
+        
     </div>
 
     <!-- weather widget end -->
@@ -102,8 +163,7 @@ if (isset($_SESSION["userId"])) {
   <div class="upload" id="up" style="display: none">
     <div class="white" ondrop="drop(event)" ondragover="allowDrop(event)">
       <img src="img/close.png" alt="cross" id="close" width="20px" onclick="closeUpload('up')" />
-      
-      <form action="upload.php" method="post" class="uploadLeft" id="form1" >
+      <form action="upload.php" method="post" class="uploadLeft" id="form1" enctype="multipart/form-data">
         <img src="img/upload.png" alt="uploadsymbol" width="50px" />
 
         <p>Drag & Drop Image</p>
@@ -112,7 +172,6 @@ if (isset($_SESSION["userId"])) {
         <input type="file" name="uploadfile" id="img" style="display: none" onchange="readURL(this);" />
         <label for="img" class="uploadBtn" name="image">Browse</label>
         <!-- <input type="submit" value="Upload"> -->
-        <input type="submit" value='Upload'>
       </form>
       <div class="uploadRight" style="display: flex">
         <img src="img/user.png" alt="selected" width="100" id="selectedImg" />
@@ -129,13 +188,7 @@ if (isset($_SESSION["userId"])) {
 
   <script>
     function load(path, self) {
-      let title = path;
-      title = title.replace("/", " ");
-      title = title.replace(".", " ");
-      title =  title.split(" ");
-      title = title[1].toUpperCase() + " | CodeByAmrit";
-      console.log(title);
-      document.title = title;
+      
       var contentContainer = document.getElementById('content-container');
       var parentDiv = document.getElementById('parentDiv');
       var elementsWithHighlight = parentDiv.getElementsByClassName('active');
